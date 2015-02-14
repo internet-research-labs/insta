@@ -4,6 +4,8 @@
 (defn auth [req]
   "
   authenticate with
+  @param req http-server-request request object
+  @return 1
   "
   1)
 

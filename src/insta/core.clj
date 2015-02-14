@@ -9,21 +9,21 @@
   (:use insta.gram)
   (:gen-class))
 
-(defn not-empty? [x]
-  (not (string/blank? x)))
-
 ;; Argument Parser
-(def cli-options
+(def cli-options 
 
-  ;; client-key argument
-  [["-k" "--client-key CLIENT-KEY" "client-key"
-    :id :client-key
-    :validate [not-empty? "client-key must be non-empty"]]
-   
-   ;; secret-key argument
-   ["-s" "--secret-key SECRET-KEY" "secret-key"
-    :id :secret-key
-    :validate [not-empty? "secret-key must be non-empty"]]])
+  ;; create local scope for validator functions
+  (letfn [(not-empty? [x] (not (string/blank? x)))]
+
+    ;; client-key argument
+    [["-k" "--client-key CLIENT-KEY" "client-key"
+      :id :client-key
+      :validate [not-empty? "client-key must be non-empty"]]
+     
+     ;; secret-key argument
+     ["-s" "--secret-key SECRET-KEY" "secret-key"
+      :id :secret-key
+      :validate [not-empty? "secret-key must be non-empty"]]]))
 
 
 ;; List of available routes
@@ -53,7 +53,7 @@
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (println options)
     (println errors))
-  
+
   (run-server (site #'yer-routes) {:port 8080})
 
   ; x_x
