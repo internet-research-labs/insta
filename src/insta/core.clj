@@ -6,6 +6,7 @@
         [compojure.handler :only [site]]
         [compojure.core :only [defroutes GET POST DELETE ANY context]])
   (:use org.httpkit.server)
+  (:use insta.gram)
   (:gen-class))
 
 (defn not-empty? [x]
