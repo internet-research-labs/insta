@@ -9,7 +9,10 @@
   (:use insta.gram)
   (:gen-class))
 
-;; Argument Parser
+
+;; Argument parser
+;; Argument parser
+;; Argument parser
 (def cli-options 
 
   ;; create local scope for validator functions
@@ -46,7 +49,9 @@
                    :body "You'll never be alone again"}))
 
 
-; Main
+;; Main
+;; Main
+;; Main
 (defn -main [& args]
 
   ;; Parse options and store
@@ -54,6 +59,7 @@
     (println options)
     (println errors))
 
+  ;; Run the server
   (run-server (site #'yer-routes) {:port 8080})
 
   ; x_x
