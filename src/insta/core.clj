@@ -1,20 +1,29 @@
 (ns insta.core
-  (:require [clojure.tools.cli :refer [parse-opts]])
-  (:require [clj-http.client :as client])
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [clj-http.client :as client]
+            [clojure.string :as string])
   (:use [compojure.route :only [files not-found]]
         [compojure.handler :only [site]]
         [compojure.core :only [defroutes GET POST DELETE ANY context]])
   (:use org.httpkit.server)
   (:gen-class))
 
-; Parse argeuments
+(defn not-empty? [x]
+  (not (string/blank? x)))
+
+;; Argument Parser
 (def cli-options
-  [["-k" "--client-key" "client key"
-    :default "key"
-    :id :client-key]
-   ["-s" "--secret-key" "secret key"
-    :default "secret-key"
-    :id :secret-key]])
+
+  ;; client-key argument
+  [["-k" "--client-key CLIENT-KEY" "client-key"
+    :id :client-key
+    :validate [not-empty? "client-key must be non-empty"]]
+   
+   ;; secret-key argument
+   ["-s" "--secret-key SECRET-KEY" "secret-key"
+    :id :secret-key
+    :validate [not-empty? "secret-key must be non-empty"]]])
+
 
 ;; List of available routes
 ;; List of available routes
@@ -24,6 +33,11 @@
   (GET "/" [] {:status 200
                :header {"Content-Type" "text/html"}
                :body "Because we are your friends"})
+
+  ;; ;;
+  (GET "/handshake" [] {:status 200
+                        :header {"Content-Type" "text/html"}
+                        :body "Because we are your friends"})
 
   ;; matt handler
   (GET "/matt" [] {:status 200
