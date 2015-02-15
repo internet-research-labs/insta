@@ -7,6 +7,7 @@
         [compojure.core :only [defroutes GET POST DELETE ANY context]])
   (:use org.httpkit.server)
   (:use insta.gram)
+  (:use clostache.parser)
   (:gen-class))
 
 
@@ -36,7 +37,7 @@
   ;; DocumentRoot
   (GET "/" [] {:status 200
                :header {"Content-Type" "text/html"}
-               :body "Because we are your friends"})
+               :body (render-resource "templates/index.mustache" {:name "matt vv/e"})})
 
   ;; ;;
   (GET "/handshake" [] {:status 200
