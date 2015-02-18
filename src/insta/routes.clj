@@ -14,7 +14,7 @@
 ;; List of available routes
 ;; List of available routes
 ;; List of available routes
-(defroutes insta-routes
+(defroutes app-routes
   ;; DocumentRoot
   (GET "/" [] {:status 200
                :header {"Content-Type" "text/html"}

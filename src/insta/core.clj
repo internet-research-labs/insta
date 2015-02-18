@@ -7,6 +7,7 @@
         [compojure.core :only [defroutes GET POST DELETE ANY context]]
         [org.httpkit.server]
         [insta.gram]
+        [insta.routes :only [app-routes]]
         [clostache.parser])
   (:gen-class))
 
@@ -30,31 +31,6 @@
       :validate [not-empty? "secret-key must be non-empty"]]]))
 
 
-;; List of available routes
-;; List of available routes
-;; List of available routes
-(defroutes yer-routes
-  ;; DocumentRoot
-  (GET "/" [] {:status 200
-               :header {"Content-Type" "text/html"}
-               :body (render-resource "templates/index.mustache" {:name "matt vv/e"})})
-
-  ;; h a n d s h a k e
-  (GET "auth" [] {:status 200
-                  :header {"Content-Type" "text/html"}
-                  :body "Because we are your friends"})
-
-  ;; n e w i m a g e
-  (GET "/new-image" [] {:status 200
-                        :header {"Content-Type" "text/html"}
-                        :body "Because we are your friends"})
-
-  ;; n e w i m a g e
-  (POST "/new-image" [] {:status 200
-                         :header {"Content-Type" "text/html"}
-                         :body "You'll never be alone again"}))
-
-
 ;; Main
 ;; Main
 ;; Main
@@ -66,7 +42,19 @@
     (println errors))
 
   ;; Run the server
-  (run-server (site #'yer-routes) {:port 8080})
+  (run-server (site #'app-routes) {:port 8080})
+
+
+  ; https://api.instagram.com/v1/tags/{tag-name}?access_token=ACCESS-TOKEN
+  ; 597d57d253d446a89bda86c03b129326
+  ; 38a6ea19033641d987385bf8de52d16a
+  (def url "https://api.instagram.com/v1/media/popular?")
+  (def client-id "597d57d253d446a89bda86c03b129326")
+  (def secret-key "597d57d253d446a89bda86c03b129326")
+
+; (let [url (string/join "" (url client-id
+; (let [res (client/GET "https://api.instagram.com/v1/media/popular?client_id=CLIENT-ID")]
+;   (println res))
 
   ; x_x
   (println "x_x"))
