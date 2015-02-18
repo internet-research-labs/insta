@@ -1,6 +1,10 @@
 (ns insta.query
   (:require [clojure.string :as string]))
 
+;; j o i n - k e y - v a l
+;; j o i n - k e y - v a l
+;; j o i n - k e y - v a l
+
 (defn join-key-val [param-key param-val]
   "
   Join a Parameter Key and a Value
@@ -9,7 +13,11 @@
   @param param-val string
   @return string
   "
-  (string/join "=" [param-key param-val]))
+  (string/join "=" [(name param-key) param-val]))
+
+;; p a i r - a r r a y
+;; p a i r - a r r a y
+;; p a i r - a r r a y
 
 (defn pair-array [p]
   "
@@ -17,7 +25,11 @@
   "
   (if (or (nil? p) (empty? p))
     []
-    (map (fn [entry-key] (join-key-val (name entry-key) (entry-key p))) (keys p))))
+    (map (fn [entry-key] (join-key-val entry-key (entry-key p))) (keys p))))
+
+;; p a r a m s
+;; p a r a m s
+;; p a r a m s
 
 (defn params [p]
   "
