@@ -12,5 +12,4 @@
                  [ring/ring-core "1.3.2"]
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [compojure "1.3.1"]]
-  :resource-paths ["src/resource"]
-  )
+  :resource-paths ["src/resource"])

@@ -1,4 +1,4 @@
-(ns insta.core
+(ns insta.routes
   (:require [clojure.tools.cli :refer [parse-opts]]
             [clj-http.client :as client]
             [clojure.string :as string])
@@ -11,29 +11,10 @@
   (:gen-class))
 
 
-;; Argument parser
-;; Argument parser
-;; Argument parser
-(def cli-options 
-
-  ;; create local scope for validator functions
-  (letfn [(not-empty? [x] (not (string/blank? x)))]
-
-    ;; client-key argument
-    [["-k" "--client-key CLIENT-KEY" "client-key"
-      :id :client-key
-      :validate [not-empty? "client-key must be non-empty"]]
-     
-     ;; secret-key argument
-     ["-s" "--secret-key SECRET-KEY" "secret-key"
-      :id :secret-key
-      :validate [not-empty? "secret-key must be non-empty"]]]))
-
-
 ;; List of available routes
 ;; List of available routes
 ;; List of available routes
-(defroutes yer-routes
+(defroutes insta-routes
   ;; DocumentRoot
   (GET "/" [] {:status 200
                :header {"Content-Type" "text/html"}
@@ -53,20 +34,3 @@
   (POST "/new-image" [] {:status 200
                          :header {"Content-Type" "text/html"}
                          :body "You'll never be alone again"}))
-
-
-;; Main
-;; Main
-;; Main
-(defn -main [& args]
-
-  ;; Parse options and store
-  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
-    (println options)
-    (println errors))
-
-  ;; Run the server
-  (run-server (site #'yer-routes) {:port 8080})
-
-  ; x_x
-  (println "x_x"))
