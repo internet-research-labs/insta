@@ -38,4 +38,4 @@
   "
   (if (or (nil? p) (empty? p))
     ""
-    (string/join "" ["?" (string/join "" (pair-array p))])))
+    (string/join "" ["?" (string/join "&" (pair-array p))])))

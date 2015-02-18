@@ -8,6 +8,8 @@
         [org.httpkit.server]
         [insta.gram]
         [insta.routes :only [app-routes]]
+        [insta.request :only [request-tag]]
+        [insta.requester]
         [clostache.parser])
   (:gen-class))
 
@@ -42,19 +44,17 @@
     (println errors))
 
   ;; Run the server
-  (run-server (site #'app-routes) {:port 8080})
+  ; (run-server (site #'app-routes) {:port 8080})
 
+  ;; request tag information from instagram, then print
+  ; (println (request-tag "yolo"))
+  ; (println (request-tag "yolo"))
 
-  ; https://api.instagram.com/v1/tags/{tag-name}?access_token=ACCESS-TOKEN
-  ; 597d57d253d446a89bda86c03b129326
-  ; 38a6ea19033641d987385bf8de52d16a
-  (def url "https://api.instagram.com/v1/media/popular?")
   (def client-id "597d57d253d446a89bda86c03b129326")
-  (def secret-key "597d57d253d446a89bda86c03b129326")
+  (def secret-key "38a6ea19033641d987385bf8de52d16a")
 
-; (let [url (string/join "" (url client-id
-; (let [res (client/GET "https://api.instagram.com/v1/media/popular?client_id=CLIENT-ID")]
-;   (println res))
+  (let [get-tag (tag-requester client-id secret-key)]
+    (println (get-tag "yolo")))
 
   ; x_x
   (println "x_x"))
