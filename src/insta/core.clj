@@ -42,33 +42,18 @@
 
   ;; Parse options and store
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
-    ; (println options)
     (println errors)
 
     (let [client-id (:client-key options)
-          secret-key (:secret-key options)]
+          secret-key (:secret-key options)
+          tag-requester (insta.requester/tag-requester client-id secret-key)]
 
-      (println client-id)
-      (println secret-key)
-
-      ;; *_*
-      ;; o_o
-      ;; -_-
-      (let [tag-requester (insta.requester/tag-requester client-id secret-key)]
-        (println (tag-requester "yolo")))
-      ))
+      ;; 597d57d253d446a89bda86c03b129326
+      ;; 38a6ea19033641d987385bf8de52d16a
+      (println (tag-requester "yolo"))))
 
   ;; Run the server
   ; (run-server (site #'app-routes) {:port 8080})
-
-  ;; request tag information from instagram, then print
-  ; (println (request-tag "yolo"))
-  ; (println (request-tag "yolo"))
-
-
-  ;; 597d57d253d446a89bda86c03b129326
-  ;; 38a6ea19033641d987385bf8de52d16a
-
 
   ;; x_x
   (println "x_x"))
