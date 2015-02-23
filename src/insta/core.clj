@@ -34,6 +34,16 @@
       :id :secret-key
       :validate [not-empty? "secret-key must be non-empty"]]]))
 
+;;
+;;
+;;
+
+(defn get-images [x]
+
+
+
+  1)
+
 
 ;; Main
 ;; Main
@@ -46,11 +56,9 @@
 
     (let [client-id (:client-key options)
           secret-key (:secret-key options)
-          tag-requester (insta.requester/tag-requester client-id secret-key)]
-
-      ;; 597d57d253d446a89bda86c03b129326
-      ;; 38a6ea19033641d987385bf8de52d16a
-      (println (tag-requester "yolo"))))
+          tag-requester (insta.requester/tag-requester client-id secret-key)
+          result (tag-requester "yolo")]
+      (println result)))
 
   ;; Run the server
   ; (run-server (site #'app-routes) {:port 8080})
