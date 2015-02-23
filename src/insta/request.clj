@@ -1,7 +1,12 @@
 (ns insta.request
   (:require [clj-http.client :as client]
             [clojure.string :as string])
-  (:use [insta.gram]
+  (:import [javax.imageio ImageIO]
+           [java.awt.image BufferedImage])
+           ; [java.io ByteArrayInputStream InputStream]
+
+  (:use [clojure.java.io :refer :all]
+        [insta.gram]
         [insta.query :only [params]]))
 
 
@@ -41,3 +46,24 @@
   (let [url (string/join "/" [INSTA-TAG-URL tag "media" "recent"])
         qp (params {:client_id client-id :client_secret secret-key})]
     (client/get (string/join "" [url qp]))))
+
+;; r e q u e s t - i m a g e
+;; r e q u e s t - i m a g e
+;; r e q u e s t - i m a g e
+
+(defn request-image [url]
+  "
+  Synchronous Return of HTTP Response
+  @param url string
+  @return bytes
+  "
+  (ImageIO/read (clojure.java.io/input-stream url)))
+
+  ;; ok
+; (let [result (client/get url {:as byte-array})]
+
+;   ;; ok
+;   (let [bais (input-stream result)]
+
+;     ;; ok
+;     (ImageIO/read url))))
