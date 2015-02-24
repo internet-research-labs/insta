@@ -12,6 +12,7 @@
         [insta.routes :only [app-routes]]
         [insta.request :only [request-tag request-image]]
         [insta.requester]
+        [clojure.data.json :as json]
         [clostache.parser])
   (:gen-class))
 
@@ -34,15 +35,24 @@
       :id :secret-key
       :validate [not-empty? "secret-key must be non-empty"]]]))
 
-;;
-;;
-;;
+;; g e t - i m a g e s
+;; g e t - i m a g e s
+;; g e t - i m a g e s
 
 (defn get-images [x]
+  "
+  Get Images from Response
+  "
+  (defn get-low-resolution-url [item]
+    (if (contains? item :images)
+      (:url (:low_resolution (:images x)))
+      nil))
 
+  (let [result (json/read-str (:body x) :key-fn keyword)
+        data (:data result)]
 
-
-  1)
+    ;; Remove
+    (map (fn [x] (:url (:low_resolution (:images x)))) data)))
 
 
 ;; Main
@@ -51,14 +61,15 @@
 (defn -main [& args]
 
   ;; Parse options and store
-  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
-    (println errors)
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)
+        client-id (:client-key options)
+        secret-key (:secret-key options)
+        tag-requester (insta.requester/tag-requester client-id secret-key)
+        result (tag-requester "yolo")
+        image-list (get-images result)]
 
-    (let [client-id (:client-key options)
-          secret-key (:secret-key options)
-          tag-requester (insta.requester/tag-requester client-id secret-key)
-          result (tag-requester "yolo")]
-      (println result)))
+    (println errors)
+    (println image-list))
 
   ;; Run the server
   ; (run-server (site #'app-routes) {:port 8080})
