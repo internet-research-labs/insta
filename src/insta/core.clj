@@ -57,9 +57,10 @@
     (filter some? (map get-low-resolution-url data))))
 
 
-;; Main
-;; Main
-;; Main
+;; - m a i n
+;; - m a i n
+;; - m a i n
+
 (defn -main [& args]
 
   ;; Parse options and store
@@ -74,7 +75,7 @@
     (println image-list))
 
   ;; Run the server
-  ; (run-server (site #'app-routes) {:port 8080})
+  ;; (run-server (site #'app-routes) {:port 8080})
 
   ;; x_x
   (println "x_x"))
