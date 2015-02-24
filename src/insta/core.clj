@@ -42,17 +42,19 @@
 (defn get-images [x]
   "
   Get Images from Response
+  @param x
+  @return tuple of url's
   "
   (defn get-low-resolution-url [item]
     (if (contains? item :images)
-      (:url (:low_resolution (:images x)))
+      (:url (:low_resolution (:images item)))
       nil))
 
   (let [result (json/read-str (:body x) :key-fn keyword)
         data (:data result)]
 
-    ;; Remove
-    (map (fn [x] (:url (:low_resolution (:images x)))) data)))
+    ;; Remove nil and empty
+    (filter some? (map get-low-resolution-url data))))
 
 
 ;; Main
