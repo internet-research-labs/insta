@@ -34,17 +34,15 @@
 ;; r e q u e s t
 ;; r e q u e s t
 
-(defn request-tag [tag]
-  "
-  Request HTTP Response for `tag`
+(defn request-tag
+  "Request HTTP Response for `tag`
   Return the JSON response from the tag endpoint for tag
-  @param tag string
-  @return hash-map json
+  - tag string
   "
-  (def client-id "597d57d253d446a89bda86c03b129326")
-  (def secret-key "38a6ea19033641d987385bf8de52d16a")
+  [client-id secret-key tag]
   (let [url (string/join "/" [INSTA-TAG-URL tag "media" "recent"])
         qp (params {:client_id client-id :client_secret secret-key})]
+    ;; ...
     (client/get (string/join "" [url qp]))))
 
 ;; r e q u e s t - i m a g e

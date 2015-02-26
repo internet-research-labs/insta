@@ -39,12 +39,14 @@
 ;; g e t - i m a g e s
 ;; g e t - i m a g e s
 
-(defn get-images [x]
+(defn get-images
   "
   Get Images from Response
   @param x
   @return tuple of url's
   "
+  [x]
+
   (defn get-low-resolution-url [item]
     (if (contains? item :images)
       (:url (:low_resolution (:images item)))
@@ -55,6 +57,18 @@
 
     ;; Remove nil and empty
     (filter some? (map get-low-resolution-url data))))
+
+;; g e 
+
+(defn get-images-url
+  "Returns a List of URL
+  - client-key: a string
+  - secret-key: a string
+  - tag: a string
+  "
+  [client-id secret-key tag]
+  (get-images (request-tag client-id secret-key tag)))
+
 
 
 ;; - m a i n
@@ -67,9 +81,9 @@
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)
         client-id (:client-key options)
         secret-key (:secret-key options)
-        tag-requester (insta.requester/tag-requester client-id secret-key)
-        result (tag-requester "yolo")
-        image-list (get-images result)]
+        ;; client-key=597d57d253d446a89bda86c03b129326
+        ;; secret-key=38a6ea19033641d987385bf8de52d16a
+        image-list (get-images-url client-id secret-key "yolo")]
 
     (println errors)
     (println image-list))
